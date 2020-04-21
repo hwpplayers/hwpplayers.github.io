@@ -1,0 +1,1 @@
+This repository inclueds hwpplayers.github.io web page files for licensing see COPYING file
