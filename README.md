@@ -1,1 +1,1 @@
-This repository inclueds hwpplayers.github.io web page files for licensing see agpl-3.0.md file
+This repository includes hwpplayers.github.io web page files for licensing see agpl-3.0.md file
