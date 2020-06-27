@@ -2,193 +2,133 @@
 <html lang="en">
 
 <head>
-  <title>hwpplayers</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" type="text/css" href="/styles/styles.css">
+    <title>hwpplayers</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/styles/styles.css">
 </head>
 
 <body>
-  <a href="https://www.github.com/hwpplayers" target="_blank" alt="hwpplayers" title="Coreboot - hwpplayers">
-    <h1>hwpplayers</h1>
-  </a>
-  <p>
-    <a href="/index.html" alt="Home Page" title="Home Page">Home</a>
-    <a href="/coreboot.html" alt="Coreboot" title="Coreboot">Coreboot</a>
-    <a href="/procyberian.html" alt="procyberian hackathon" title="procyberian hackathon">procyberian hackathon</a>
-  </p>
-  <a href="https://hwpplayers.github.io" alt="hwpplayers" title="hwpplayers rainbow"><img
-      src="images/hwpplayers_Rainbow_Circle_40px_87x82.svg.png" alt="hwpplayers_Rainbow_Circle_40px_87x82.svg.png"
-      width="100px" height="100px" /></a>
-  <p>
-    hard working philosophers players is a hackerspace please look at
-    <a href="https://en.wikipedia.org/wiki/Hackerspace" target="_blank" alt="Hackerspace"
-      title="Hackerspace">Hackerspace</a>
-    for free software developers , admins and other content makers.
-  </p>
-  <p>
-    For the meaning of hwpplayers please look at
-    <a href="https://www.stallman.org/articles/on-hacking.html" target="_blank" alt="On hacking" title="On hacking">On
+    <a href="https://www.github.com/hwpplayers" target="_blank" alt="hwpplayers" title="Coreboot - hwpplayers">
+        <h1>hwpplayers</h1>
+    </a>
+    <p>
+        <a href="/index.html" alt="Home Page" title="Home Page">Home</a>
+        <a href="/coreboot.html" alt="Coreboot" title="Coreboot">Coreboot</a>
+        <a href="/procyberian.html" alt="procyberian hackathon" title="procyberian hackathon">procyberian hackathon</a>
+    </p>
+    <a href="https://hwpplayers.github.io" alt="hwpplayers" title="hwpplayers rainbow"><img src="images/hwpplayers_Rainbow_Circle_40px_87x82.svg.png" alt="hwpplayers_Rainbow_Circle_40px_87x82.svg.png" width="100px" height="100px" /></a>
+    <p>
+        hard working philosophers players is a hackerspace please look at
+        <a href="https://en.wikipedia.org/wiki/Hackerspace" target="_blank" alt="Hackerspace" title="Hackerspace">Hackerspace</a> for free software developers , admins and other content makers.
+    </p>
+    <p>
+        For the meaning of hwpplayers please look at
+        <a href="https://www.stallman.org/articles/on-hacking.html" target="_blank" alt="On hacking" title="On hacking">On
       hacking
     </a>
-    <br />
-    <br />
-
-    It is hard to write a simple definition of something as varied as hacking,
-    but I think what these activities have in common is playfulness,
-    cleverness, and exploration. Thus, hacking means exploring the limits of
-    what is possible, in a spirit of playful cleverness. Activities that
-    display playful cleverness have "hack value".
-  </p>
-  <hr />
-  <h1>
-    What we understand from Coreboot and why it is important
-  </h1>
-  <p>
-
-    The LinuxBIOS project began in 1999 at Los Alamos National Laboratory with the clear goal of creating a firmware for
-    PCs that could be reliable, fast, well integrated and that could be more secure.
-    LinuxBIOS is now known under the Coreboot name, and is the only free as in freedom BIOS released under GPL version 2
-    that supports IA-32, x86-64, ARM, ARM64, MIPS and RISC-V architectures.
-    <br />
-    Coreboot, as its old name means it, was designed with a Linux kernel at first, highly rewritten and remastered to
-    become a full firmware that can load a GNU/Linux distribution or any other OS.
-    There is in fact four steps for Coreboot to load our OS, all of that written mostly in C.
-    <br />
-    First, the Coreboot's mission is to pass the "Bootblock stage". In fact, this is actually prepare and initialize
-    flash memory that contains firmwares.
-    Then comes the "ROM stage" that is the initialization of the chipset and memory to work correctly.
-    The third step is the "RAM stage" that involves copying the payload in memory and preparing its environment to work
-    properly.
-    And eventually, the "Payload stage", that is actually where Coreboot can load an operating system in memory and make
-    it work !
-
-    <h2>
-      The Bootblock stage
-    </h2>
-    <p>
-      This is mostly done by initializing stack point, exceptions and interrupts with some assembly code then jumping to
-      C code (src/lib/bootblock.c).
-      <br />
-      The code is compiled with a special cross-compiler that uses L1 cache of CPU as RAM (since RAM isn't initialized
-      at this time). That code is weight-optimized to fit in ROM chips.
-      <br />
-      Then Coreboot initializes the mainboard and jump to the next stage.
+        <br />
+        <br /> It is hard to write a simple definition of something as varied as hacking, but I think what these activities have in common is playfulness, cleverness, and exploration. Thus, hacking means exploring the limits of what is possible, in a
+        spirit of playful cleverness. Activities that display playful cleverness have "hack value".
     </p>
-
-    <h2>
-      The ROM stage
-    </h2>
-    <p>
-      This stage, written in C uses the same compiler than the Bootblock stage. It intends to initialize the clock and
-      memory to work for the future OS. It involves verifying informations of each material, such as capabilities and
-      compatibilities, and checking ervything is OK to boot.
-      <br />
-      At this time, the VGA BIOS is initialized. Then, the RAM stage is invoked.
-    </p>
-
-    <h2>
-      The RAM stage
-    </h2>
-    <p>
-      This stage intends to populate the RAM for the OS to work : it means enumerating the PCI and PCI-e buses, creating
-      ACPI tables, SMM handlers, legacy BIOS interrupt vectors, and so on.
-      <br />
-      This step is really important because many OSes rely on ACPI tables to enumerate buses (as manual probing is
-      sometimes harmful).
-      <br />
-      Then the Payload stage is loaded and invoked.
-    </p>
-
-    <h2>
-      The Payload stage
-    </h2>
-    <p>
-      Coreboot doesn’t try to mandate how the boot process should look, it merely does hardware init and then passes on
-      control to another piece of software that it carry along in firmware storage, the payload.
-      <br />
-      This payload can be anything like
-    </p>
-    <ul>
-      <li>a Linux kernel,</li>
-      <li>SeaBIOS (a free software implementation of the PCBIOS API that exists since the original IBM PC),</li>
-      <li>TianoCore (a free software reference implementation of the UEFI Specifications that modern firmware for PCs is
-        based on),</li>
-      <li>GRUB v2 (a free software bootloader for booting many POSIX operating systems).</li>
-    </ul>
-    <p>
-      After this stage, only the SMM handler remain active, and Coreboot does not let any service resident. The machine
-      is now controlled by the OS.
-    </p>
-
-    <br />
-    <p>
-
-      Coreboot, at this time when proprietary software spies on our computers, since Intel ME exists with awesome and
-      terrible capabilities, is our only hope to bring freedom to our machines.
-      <br />
-      GNU/Linux is no longer free if someone or something can control it without limit, without control from the user,
-      and without audit about security of this intrusion.
-      <br />
-      With Coreboot, it became possible to not have a UEFI full resident kernel functionning alongside the user's OS,
-      and to disable the hidden cores inside AMD and Intel processors that run something that can read your data even if
-      your computer is shutdown and transmit these data via the Internet.
-      <br />
-      <br />
-      There is some distribution of Coreboot, that are more or less different.
-      <br />
-      As Coreboot tries to work correctly on most of hardware, the Coreboot team accepts at this time a small amount of
-      proprietary blobs.
-      <br />
-      Libreboot is a distribution of Coreboot that removes these blobs and contribute to Coreboot to help the team to
-      remove them permanently.
-      <br />
-      Libreboot was a GNU package, and is still supported by the FSF.
-    </p>
-
     <hr />
-    <footer>
-      <h1>Licences for our works</h1>
-      <p>
-        For software we prefer
-        <a href="https://www.gnu.org/licenses/agpl-3.0.en.html" target="_blank" alt="AGPLv3 or later"
-          title="AGPLv3 or later">AGPLv3 or later</a>
-        and
-        <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank" alt="GPLv3 or later"
-          title="GPLv3 or later">GPLv3 or later</a>
-        licenses.
-      </p>
-      <p>All documents written by us are licensed under the terms of
-        <a href="https://www.gnu.org/licenses/fdl-1.3.en.html" target="_blank" alt="GFDLv1.3 or later"
-          title="GFDLv1.3 or later">GFDLv1.3 or later</a> license</p>
-      <p>
-        Our own artworks are licensed under the terms of
-        <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" alt="CC BY-SA 4.0 or later"
-          title="CC BY-SA 4.0 or later">CC BY-SA 4.0 or later</a>
-        license
-      </p>
-      <p>
-        <a href="https://masscollabs.github.io/coc.html" target="_blank" alt="Masscollabs Services Code of Conduct"
-          title="Masscollabs Services Code of Conduct">Masscollabs Services Code of Conduct</a>
-        applies to hwpplayers
-      </p>
-      <p>
-        If you have any questions please create an issue on
-        <a href="https://www.github.com/hwpplayers/hwpplayers/issues" target="_blank" alt="our support page"
-          title="our support page">our support page</a>
-        or join the
-        <a href="https://webchat.freenode.net/?channels=#hwpplayers" target="_blank" alt="Freenode #hwpplayers channel"
-          title="Freenode #hwpplayers channel">Freenode hwpplayers channel</a>
-        or the
-        <a href="https://t.me/hwpplayers" target="_blank" alt="hwpplayers Telegram group"
-          title="hwpplayers Telegram group">hwpplayers Telegram group</a>
-        to ask your question.
-      </p>
-      <p style="text-align: center;">
-        <a href="https://www.github.com/hwpplayers" target="_blank" alt="hwpplayers" title="hwpplayers">hwpplayers</a>
-        Copyright &copy; 2020
-      </p>
-    </footer>
+    <h1>
+        What we understand from Coreboot and why it is important
+    </h1>
+    <p>
+
+        The LinuxBIOS project began in 1999 at Los Alamos National Laboratory with the clear goal of creating a firmware for PCs that could be reliable, fast, well integrated and that could be more secure. LinuxBIOS is now known under the Coreboot name, and is
+        the only free as in freedom BIOS released under GPL version 2 that supports IA-32, x86-64, ARM, ARM64, MIPS and RISC-V architectures.
+        <br /> Coreboot, as its old name means it, was designed with a Linux kernel at first, highly rewritten and remastered to become a full firmware that can load a GNU/Linux distribution or any other OS. There is in fact four steps for Coreboot to
+        load our OS, all of that written mostly in C.
+        <br /> First, the Coreboot's mission is to pass the "Bootblock stage". In fact, this is actually prepare and initialize flash memory that contains firmwares. Then comes the "ROM stage" that is the initialization of the chipset and memory to work
+        correctly. The third step is the "RAM stage" that involves copying the payload in memory and preparing its environment to work properly. And eventually, the "Payload stage", that is actually where Coreboot can load an operating system in memory
+        and make it work !
+
+        <h2>
+            The Bootblock stage
+        </h2>
+        <p>
+            This is mostly done by initializing stack point, exceptions and interrupts with some assembly code then jumping to C code (src/lib/bootblock.c).
+            <br /> The code is compiled with a special cross-compiler that uses L1 cache of CPU as RAM (since RAM isn't initialized at this time). That code is weight-optimized to fit in ROM chips.
+            <br /> Then Coreboot initializes the mainboard and jump to the next stage.
+        </p>
+
+        <h2>
+            The ROM stage
+        </h2>
+        <p>
+            This stage, written in C uses the same compiler than the Bootblock stage. It intends to initialize the clock and memory to work for the future OS. It involves verifying informations of each material, such as capabilities and compatibilities, and checking
+            ervything is OK to boot.
+            <br /> At this time, the VGA BIOS is initialized. Then, the RAM stage is invoked.
+        </p>
+
+        <h2>
+            The RAM stage
+        </h2>
+        <p>
+            This stage intends to populate the RAM for the OS to work : it means enumerating the PCI and PCI-e buses, creating ACPI tables, SMM handlers, legacy BIOS interrupt vectors, and so on.
+            <br /> This step is really important because many OSes rely on ACPI tables to enumerate buses (as manual probing is sometimes harmful).
+            <br /> Then the Payload stage is loaded and invoked.
+        </p>
+
+        <h2>
+            The Payload stage
+        </h2>
+        <p>
+            Coreboot doesn’t try to mandate how the boot process should look, it merely does hardware init and then passes on control to another piece of software that it carry along in firmware storage, the payload.
+            <br /> This payload can be anything like
+        </p>
+        <ul>
+            <li>a Linux kernel,</li>
+            <li>SeaBIOS (a free software implementation of the PCBIOS API that exists since the original IBM PC),</li>
+            <li>TianoCore (a free software reference implementation of the UEFI Specifications that modern firmware for PCs is based on),</li>
+            <li>GRUB v2 (a free software bootloader for booting many POSIX operating systems).</li>
+        </ul>
+        <p>
+            After this stage, only the SMM handler remain active, and Coreboot does not let any service resident. The machine is now controlled by the OS.
+        </p>
+
+        <br />
+        <p>
+
+            Coreboot, at this time when proprietary software spies on our computers, since Intel ME exists with awesome and terrible capabilities, is our only hope to bring freedom to our machines.
+            <br /> GNU/Linux is no longer free if someone or something can control it without limit, without control from the user, and without audit about security of this intrusion.
+            <br /> With Coreboot, it became possible to not have a UEFI full resident kernel functionning alongside the user's OS, and to disable the hidden cores inside AMD and Intel processors that run something that can read your data even if your
+            computer is shutdown and transmit these data via the Internet.
+            <br />
+            <br /> There is some distribution of Coreboot, that are more or less different.
+            <br /> As Coreboot tries to work correctly on most of hardware, the Coreboot team accepts at this time a small amount of proprietary blobs.
+            <br /> Libreboot is a distribution of Coreboot that removes these blobs and contribute to Coreboot to help the team to remove them permanently.
+            <br /> Libreboot was a GNU package, and is still supported by the FSF.
+        </p>
+
+        <hr />
+        <footer>
+            <h1>Licences for our works</h1>
+            <p>
+                For software we prefer
+                <a href="https://www.gnu.org/licenses/agpl-3.0.en.html" target="_blank" alt="AGPLv3 or later" title="AGPLv3 or later">AGPLv3 or later</a> and
+                <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank" alt="GPLv3 or later" title="GPLv3 or later">GPLv3 or later</a> licenses.
+            </p>
+            <p>All documents written by us are licensed under the terms of
+                <a href="https://www.gnu.org/licenses/fdl-1.3.en.html" target="_blank" alt="GFDLv1.3 or later" title="GFDLv1.3 or later">GFDLv1.3 or later</a> license</p>
+            <p>
+                Our own artworks are licensed under the terms of
+                <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" alt="CC BY-SA 4.0 or later" title="CC BY-SA 4.0 or later">CC BY-SA 4.0 or later</a> license
+            </p>
+            <p>
+                <a href="https://masscollabs.github.io/coc.html" target="_blank" alt="Masscollabs Services Code of Conduct" title="Masscollabs Services Code of Conduct">Masscollabs Services Code of Conduct</a> applies to hwpplayers
+            </p>
+            <p>
+                If you have any questions please create an issue on
+                <a href="https://www.github.com/hwpplayers/hwpplayers/issues" target="_blank" alt="our support page" title="our support page">our support page</a> or join the
+                <a href="https://webchat.freenode.net/?channels=#hwpplayers" target="_blank" alt="Freenode #hwpplayers channel" title="Freenode #hwpplayers channel">Freenode hwpplayers channel</a> to ask your question.
+            </p>
+            <p style="text-align: center;">
+                <a href="https://www.github.com/hwpplayers" target="_blank" alt="hwpplayers" title="hwpplayers">hwpplayers</a> Copyright &copy; 2020
+            </p>
+        </footer>
 </body>
 
 </html>
