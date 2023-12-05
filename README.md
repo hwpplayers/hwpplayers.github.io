@@ -1,3 +1,14 @@
+# hwpplayers.github.io web page source code 
+
+This repository includes hwpplayers.github.io web page source code
+which is available under the terms of [AGPLv3 or
+later](https://github.com/hwpplayers/hwpplayers.github.io/blob/master/LICENSE)
+license. We'll update the wep page frequently. If you have questions
+and/or want to change some parts of the web page or add new fatures
+please fork the project and then send pull request.
+
+# License
+
 Copyright (C)  2014-2024, Masscollabs Services, Mass Collaboration Labs, amassivus, procyberian, hwpplayers
 
 Permission is granted to copy, distribute and/or modify this document
@@ -23,11 +34,4 @@ GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
-# hwpplayers.github.io web page source code 
 
-This repository includes hwpplayers.github.io web page source code
-which is available under the terms of [AGPLv3 or
-later](https://github.com/hwpplayers/hwpplayers.github.io/blob/master/LICENSE)
-license. We'll update the wep page frequently. If you have questions
-and/or want to change some parts of the web page or add new fatures
-please fork the project and then send pull request.
